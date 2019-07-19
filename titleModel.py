@@ -1,7 +1,6 @@
 import praw
 import re
 import string
-import pandas as pd
 import nltk
 import os
 from nltk.tokenize import word_tokenize
@@ -19,38 +18,20 @@ reddit=praw.Reddit(client_id=os.environ['CLIENT_ID_REDDIT'], client_secret=os.en
                      password=os.environ['PASSWORD_REDDIT'], user_agent='testing praw',
                      username=os.environ['USERNAME_REDDIT'])
 
-# mongodb://gdgnd:gdgnd19@ds119755.mlab.com:19755/gdgndnodeangular
 
 titles=[]
 hash_labels={}
 labelsTrain=[]
 testTitles=[]
 testLabels=[]
-last=""
-i=0
-for submission in reddit.subreddit('india').top(limit=1000):
+for submission in reddit.subreddit('india').hot(limit=1000):
     titles.append(submission.title)
     labelsTrain.append(submission.link_flair_text)
-    last=submission.fullname
-    i+=1
     try:
         if hash_labels[submission.link_flair_text]==0:
             pass
     except:
         hash_labels[submission.link_flair_text]=0
-print(i)
-i=0
-for submission in reddit.subreddit('india').hot(limit=1000,params={"after" : "t3_ce79ay"}):
-    titles.append(submission.title)
-    labelsTrain.append(submission.link_flair_text)
-    # last=submission.fullname
-    i+=1
-    try:
-        if hash_labels[submission.link_flair_text]==0:
-            pass
-    except:
-        hash_labels[submission.link_flair_text]=0
-print(i)
 tempCounter=0
 for j in hash_labels:
     hash_labels[j]=tempCounter
@@ -64,7 +45,13 @@ for j in range(len(titles)):
     labels[j]=hash_labels[labelsTrain[j]]
     temp=titles[j].lower()
     temp=re.sub(r'\d+', '', temp)
-    temp=temp.translate(str.maketrans("","", string.punctuation))
+    # temp=temp.translate(string.maketrans("","",string.punctuation))
+    # temp=temp.translate(None,string.punctuation)
+    tempstr=""
+    for char in temp:
+        if char not in string.punctuation:
+            tempstr+=char
+    temp=tempstr
     temp=temp.strip()
     t=word_tokenize(temp)
     temp=[k for k in t if not k in stop_words]
