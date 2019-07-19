@@ -48,7 +48,7 @@ pyasn1-modules==0.2.4
 pycairo==1.16.2
 pycrypto==2.6.1
 pygame==1.9.4
-pygobject==3.26.1
+# pygobject==3.26.1
 pymongo==3.8.0
 pyserial==3.4
 python-Levenshtein==0.12.0
