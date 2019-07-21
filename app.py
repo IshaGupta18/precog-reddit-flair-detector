@@ -8,7 +8,6 @@ import re
 import string
 import nltk
 import sys
-import urlparse
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
@@ -128,7 +127,7 @@ def saveData():
 @app.route('/getLabel',methods=["POST"])
 def getLabel():
     postLink=request.form.get('postURL')
-    postID=urlparse.urlsplit(postLink).path.split("/")[4]
+    postID=postLink.split("/")[6]
     post=reddit.submission(id=postID)
     
 
