@@ -24,7 +24,9 @@ hash_labels={}
 labelsTrain=[]
 testTitles=[]
 testLabels=[]
-for submission in reddit.subreddit('india').hot(limit=1000):
+i=0
+for submission in reddit.subreddit('india').top(limit=1000):
+    i+=1
     titles.append(submission.title)
     labelsTrain.append(submission.link_flair_text)
     try:
@@ -32,6 +34,7 @@ for submission in reddit.subreddit('india').hot(limit=1000):
             pass
     except:
         hash_labels[submission.link_flair_text]=0
+print(i)
 tempCounter=0
 for j in hash_labels:
     hash_labels[j]=tempCounter

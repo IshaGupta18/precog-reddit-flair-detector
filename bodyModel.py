@@ -24,7 +24,7 @@ hash_labels={}
 labelsTrain=[]
 testTitles=[]
 testLabels=[]
-for submission in reddit.subreddit('india').hot(limit=1000):
+for submission in reddit.subreddit('india').top(limit=1000):
     titles.append(submission.selftext)
     labelsTrain.append(submission.link_flair_text)
     try:
@@ -62,7 +62,7 @@ for j in range(len(titles)):
 # print(uniquewords,len(uniquewords))
 tfidf_vectorizer=TfidfVectorizer(use_idf=True)
 unique_word_count_vectorizer=tfidf_vectorizer.fit_transform(titles)
-print(unique_word_count_vectorizer.shape)
+# print(unique_word_count_vectorizer.shape)
 X_train, X_test, Y_train, Y_test = train_test_split(unique_word_count_vectorizer, labels, test_size=0.2,random_state=109)
 gnb = MultinomialNB()
 gnb.fit(X_train.toarray(),Y_train)

@@ -23,7 +23,9 @@ hash_labels={}
 labelsTrain=[]
 testTitles=[]
 testLabels=[]
-for submission in reddit.subreddit('india').hot(limit=1000):
+i=0
+for submission in reddit.subreddit('india').top(limit=1000):
+    i+=1
     titles.append(submission.title+" "+submission.selftext)
     labelsTrain.append(submission.link_flair_text)
     try:
@@ -31,6 +33,7 @@ for submission in reddit.subreddit('india').hot(limit=1000):
             pass
     except:
         hash_labels[submission.link_flair_text]=0
+print(i)
 tempCounter=0
 for j in hash_labels:
     hash_labels[j]=tempCounter
@@ -57,7 +60,7 @@ for j in range(len(titles)):
         else:
             uniquewords[word]=1
 # uniquewords=sorted(uniquewords.items(), key=lambda x: x[1], reverse=True)
-print(uniquewords,len(uniquewords))
+# print(uniquewords,len(uniquewords))
 tfidf_vectorizer=TfidfVectorizer(use_idf=True)
 unique_word_count_vectorizer=tfidf_vectorizer.fit_transform(titles)
 X_train, X_test, Y_train, Y_test = train_test_split(unique_word_count_vectorizer, labels, test_size=0.2,random_state=109)
