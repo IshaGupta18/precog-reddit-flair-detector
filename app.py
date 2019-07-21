@@ -19,13 +19,11 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
-reddit=praw.Reddit(client_id=os.environ['CLIENT_ID_REDDIT'], client_secret=os.environ['CLIENT_SECRET_REDDIT'],
-                     password=os.environ['PASSWORD_REDDIT'], user_agent='testing praw',
-                     username=os.environ['USERNAME_REDDIT'])
-myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-databaseAll = myclient["mydatabase"]
+reddit=praw.Reddit(client_id="GXSJ2q3iO6H1sw", client_secret="4HcvsdQ14CZMKRp1__ZkjkRnXGE",
+                     password="ishagupta18", user_agent='testing praw',
+                     username="isha_gupta18")
 app = Flask(__name__)
-app.config['MONGO_URI']=os.environ['MONGODB_URI']
+app.config['MONGO_URI']="mongodb://gdgnd:gdgnd19@ds119755.mlab.com:19755/gdgndnodeangular"
 mongo = PyMongo(app)
 def preprocessor(data,hash_labels,allLabels):
     stop_words=set(stopwords.words('english'))
