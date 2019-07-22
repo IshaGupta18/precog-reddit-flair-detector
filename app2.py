@@ -19,6 +19,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
+from sklearn.externals import joblib
 reddit=praw.Reddit(client_id="GXSJ2q3iO6H1sw", client_secret="4HcvsdQ14CZMKRp1__ZkjkRnXGE",
                      password="ishagupta18", user_agent='testing praw',
                      username="isha_gupta18")
@@ -32,9 +33,9 @@ accuracy3=0
 hash_labels={}
 allLabels=[]
 temparr=[]
-m1=pickle.loads(open("./titleModeldump.pkl", "rb").read())
-m2=pickle.loads(open("./bodyModeldump.pkl", "rb").read())
-m3=pickle.loads(open("./title_bodyModeldump.pkl", "rb").read())
+m1= joblib.load("./titleModeldump.pkl")#pickle.loads(open("./titleModeldump.pkl", "rb").read())
+m2=joblib.load("./bodyModeldump.pkl")#pickle.loads(open("./bodyModeldump.pkl", "rb").read())
+m3=joblib.load("./title_bodyModeldump.pkl")#pickle.loads(open("./title_bodyModeldump.pkl", "rb").read())
 mtitle=pickle.load(open("./title.bin","rb"))
 mbody=pickle.load(open("./body.bin","rb"))
 mtitle_body=pickle.load(open("./title_body.bin","rb"))
