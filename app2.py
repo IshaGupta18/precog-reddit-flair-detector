@@ -31,7 +31,7 @@ accuracy3=0
 hash_labels={}
 allLabels=[]
 temparr=[]
-m1=pickle.load(open("./titleModeldump.pkl", "rb"))
+m1=pickle.load(open("./titleModeldump.pkl", "rb", encoding="utf-8"))
 m2=pickle.load(open("./bodyModeldump.pkl", "rb"))
 m3=pickle.load(open("./title_bodyModeldump.pkl", "rb"))
 vectorizers=[m1[1],m2[1],m3[1]]
