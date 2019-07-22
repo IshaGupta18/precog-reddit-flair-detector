@@ -16,7 +16,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
-from sklearn.externals import joblib
+# from sklearn.externals import joblib
 reddit=praw.Reddit(client_id=os.environ['CLIENT_ID_REDDIT'], client_secret=os.environ['CLIENT_SECRET_REDDIT'],
                      password=os.environ['PASSWORD_REDDIT'], user_agent='testing praw',
                      username=os.environ['USERNAME_REDDIT'])
@@ -73,8 +73,8 @@ gnb = MultinomialNB()
 gnb.fit(X_train.toarray(),Y_train)
 Y_predicted=gnb.predict(X_test.toarray())
 a=metrics.accuracy_score(Y_test, Y_predicted)
-joblib.dump(gnb, "./bodyModeldump.pkl")
-joblib.dump(tfidf_vectorizer,"./x2.pkl")
-# pickle.dump(gnb,open("./bodyModeldump.pkl","wb"))
+# joblib.dump(gnb, "./bodyModeldump.pkl")
+# joblib.dump(tfidf_vectorizer,"./x2.pkl")
+pickle.dump(gnb,open("./bodyModeldump.pkl","wb"))
 pickle.dump([tfidf_vectorizer,a,reverse_hash_labels],open("./body.bin","wb"))
 print("Accuracy:",metrics.accuracy_score(Y_test, Y_predicted))

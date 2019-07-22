@@ -19,7 +19,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
-from sklearn.externals import joblib
+#from sklearn.externals import joblib
 reddit=praw.Reddit(client_id="GXSJ2q3iO6H1sw", client_secret="4HcvsdQ14CZMKRp1__ZkjkRnXGE",
                      password="ishagupta18", user_agent='testing praw',
                      username="isha_gupta18")
@@ -33,12 +33,15 @@ accuracy3=0
 hash_labels={}
 allLabels=[]
 temparr=[]
-m1=joblib.load("./titleModeldump.pkl")#pickle.loads(open("./titleModeldump.pkl", "rb").read())
-m2=joblib.load("./bodyModeldump.pkl")#pickle.loads(open("./bodyModeldump.pkl", "rb").read())
-m3=joblib.load("./title_bodyModeldump.pkl")#pickle.loads(open("./title_bodyModeldump.pkl", "rb").read())
-x1=joblib.load("./x1.pkl")
-x2=joblib.load("./x2.pkl")
-x3=joblib.load("./x3.pkl")
+#m1=#joblib.load("./titleModeldump.pkl")#
+m1 = pickle.load(open("./titleModeldump.pkl", "rb"))
+#m2=#joblib.load("./bodyModeldump.pkl")#
+m2 = pickle.load(open("./bodyModeldump.pkl", "rb"))
+#m3=#joblib.load("./title_bodyModeldump.pkl")#
+m3 = pickle.load(open("./title_bodyModeldump.pkl", "rb"))
+# x1=#joblib.load("./x1.pkl")
+# x2=#joblib.load("./x2.pkl")
+# x3=#joblib.load("./x3.pkl")
 mtitle=pickle.load(open("./title.bin","rb"))
 mbody=pickle.load(open("./body.bin","rb"))
 mtitle_body=pickle.load(open("./title_body.bin","rb"))
