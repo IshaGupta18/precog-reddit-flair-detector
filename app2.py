@@ -45,7 +45,7 @@ m3 = pickle.load(open("./title_bodyModeldump.pkl", "rb"))
 mtitle=pickle.load(open("./title.bin","rb"))
 mbody=pickle.load(open("./body.bin","rb"))
 mtitle_body=pickle.load(open("./title_body.bin","rb"))
-vectorizers=[x1,x2,x3]
+vectorizers=[mtitle[0],mbody[0],mtitle_body[0]]
 acc=[mtitle[1],mbody[1],mtitle_body[1]]
 reverse_hash_labels=mtitle[2]
 def detectFlair(detectData):
@@ -99,7 +99,7 @@ def index():
 def saveData():
     kk=0
     current_id=[]
-    for submission in reddit.subreddit('india').top(limit=1000):
+    for submission in reddit.subreddit('india').top(limit=3):
         kk+=1
         mongo.db.users.insert({'submission_name': "submission_"+str(kk), "author": str(submission.author), "comments": str(submission.comments.list()), "timestamp": str(submission.created_utc), "body": str(submission.selftext.encode('utf-8').strip()), "id": str(submission.id.encode('utf-8').strip()), "flair": str(submission.link_flair_text), "fullName": str(submission.name.encode('utf-8').strip()), "title": str(submission.title.encode('utf-8').strip()), "upvote_ratio": str(submission.upvote_ratio), "my_id": '1234'})
     return '''
