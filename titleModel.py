@@ -76,6 +76,7 @@ gnb.fit(X_train.toarray(),Y_train)
 Y_predicted=gnb.predict(X_test.toarray())
 a=metrics.accuracy_score(Y_test, Y_predicted)
 joblib.dump(gnb, "./titleModeldump.pkl")
+joblib.dump(tfidf_vectorizer,"./x1.pkl")
 #pickle.dump(gnb,open("./titleModeldump.pkl","wb"))
 pickle.dump([tfidf_vectorizer,a,reverse_hash_labels],open("./title.bin","wb"))
 
