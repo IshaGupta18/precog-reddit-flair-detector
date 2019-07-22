@@ -31,16 +31,19 @@ accuracy3=0
 hash_labels={}
 allLabels=[]
 temparr=[]
-m1=pickle.load(open("./titleModeldump.pkl", "rb", encoding="utf-8"))
+m1=pickle.load(open("./titleModeldump.pkl", "rb"))
 m2=pickle.load(open("./bodyModeldump.pkl", "rb"))
 m3=pickle.load(open("./title_bodyModeldump.pkl", "rb"))
-vectorizers=[m1[1],m2[1],m3[1]]
-acc=[m1[2],m2[2],m3[2]]
-reverse_hash_labels=m1[3]
+mtitle=pickle.load(open("./title.bin","rb"))
+mbody=pickle.load(open("./body.bin","rb"))
+mtitle_body=pickle.load(open("./title_body.bin","rb"))
+vectorizers=[mtitle[0],mbody[0],mtitle_body[0]]
+acc=[mtitle[1],mbody[1],mtitle_body[1]]
+reverse_hash_labels=mtitle[2]
 def detectFlair(detectData):
-    model1=m1[0]
-    model2=m2[0]
-    model3=m3[0]
+    model1=m1
+    model2=m2
+    model3=m3
     ans1 = model1.predict(detectData[0])
     ans2=model2.predict(detectData[1])
     ans3=model3.predict(detectData[2])

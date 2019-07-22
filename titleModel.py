@@ -74,6 +74,7 @@ gnb = MultinomialNB()
 gnb.fit(X_train.toarray(),Y_train)
 Y_predicted=gnb.predict(X_test.toarray())
 a=metrics.accuracy_score(Y_test, Y_predicted)
-pickle.dump([gnb,tfidf_vectorizer,a,reverse_hash_labels],open("./titleModeldump.pkl","wb"))
+pickle.dump(gnb,open("./titleModeldump.pkl","wb"))
+pickle.dump([tfidf_vectorizer,a,reverse_hash_labels],open("./title.bin","wb"))
 
 print("Accuracy:",metrics.accuracy_score(Y_test, Y_predicted))
