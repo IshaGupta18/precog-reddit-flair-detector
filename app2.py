@@ -23,6 +23,7 @@ reddit=praw.Reddit(client_id="GXSJ2q3iO6H1sw", client_secret="4HcvsdQ14CZMKRp1__
                      password="ishagupta18", user_agent='testing praw',
                      username="isha_gupta18")
 app = Flask(__name__)
+# app.config['MONGO_URI']="mongodb://localhost:27017/mydatabase3"
 app.config['MONGO_URI']="mongodb://gdgnd:gdgnd19@ds119755.mlab.com:19755/gdgndnodeangular"
 mongo = PyMongo(app)
 accuracy1=0
@@ -91,9 +92,9 @@ def index():
 def saveData():
     kk=0
     current_id=[]
-    for submission in reddit.subreddit('india').top(limit=3):
+    for submission in reddit.subreddit('india').top(limit=1000):
         kk+=1
-        mongo.db.users.insert({'submission_name': "submission_"+str(kk), "author": str(submission.author), "comments": str(submission.comments.list()), "timestamp": submission.created_utc, "body": str(submission.selftext), "id": submission.id, "flair": submission.link_flair_text, "fullName": submission.name, "title": str(submission.title), "upvote_ratio": submission.upvote_ratio, "my_id": '1234'})
+        mongo.db.users.insert({'submission_name': "submission_"+str(kk), "author": str(submission.author), "comments": str(submission.comments.list()), "timestamp": str(submission.created_utc), "body": str(submission.selftext.encode('utf-8').strip()), "id": str(submission.id.encode('utf-8').strip()), "flair": str(submission.link_flair_text), "fullName": str(submission.name.encode('utf-8').strip()), "title": str(submission.title.encode('utf-8').strip()), "upvote_ratio": str(submission.upvote_ratio), "my_id": '1234'})
     return '''
     <form method="POST" action="/getLabel">
         <input type="text" name="postURL" placeholder"Post's URL">

@@ -23,6 +23,7 @@ reddit=praw.Reddit(client_id="GXSJ2q3iO6H1sw", client_secret="4HcvsdQ14CZMKRp1__
                      password="ishagupta18", user_agent='testing praw',
                      username="isha_gupta18")
 app = Flask(__name__)
+# app.config['MONGO_URI']="mongodb://localhost:27017/mydatabase3"
 app.config['MONGO_URI']="mongodb://gdgnd:gdgnd19@ds119755.mlab.com:19755/gdgndnodeangular"
 mongo = PyMongo(app)
 accuracy1=0
