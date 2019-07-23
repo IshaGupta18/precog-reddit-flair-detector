@@ -19,7 +19,6 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
-#from sklearn.externals import joblib
 reddit=praw.Reddit(client_id="GXSJ2q3iO6H1sw", client_secret="4HcvsdQ14CZMKRp1__ZkjkRnXGE",
                      password="ishagupta18", user_agent='testing praw',
                      username="isha_gupta18")
@@ -27,26 +26,15 @@ app = Flask(__name__)
 # app.config['MONGO_URI']="mongodb://localhost:27017/mydatabase3"
 app.config['MONGO_URI']="mongodb://gdgnd:gdgnd19@ds119755.mlab.com:19755/gdgndnodeangular"
 mongo = PyMongo(app)
-#m1=#joblib.load("./titleModeldump.pkl")#
 m1 = pickle.load(open("./titleModeldump.pkl", "rb"))
-#m2=#joblib.load("./bodyModeldump.pkl")#
 m2 = pickle.load(open("./bodyModeldump.pkl", "rb"))
-#m3=#joblib.load("./title_bodyModeldump.pkl")#
 m3 = pickle.load(open("./title_bodyModeldump.pkl", "rb"))
-# x1=#joblib.load("./x1.pkl")
-# x2=#joblib.load("./x2.pkl")
-# x3=#joblib.load("./x3.pkl")
 mtitle=pickle.load(open("./title.bin","rb"))
 mbody=pickle.load(open("./body.bin","rb"))
 mtitle_body=pickle.load(open("./title_body.bin","rb"))
 vectorizers=[mtitle[0],mbody[0],mtitle_body[0]]
 acc=[mtitle[1],mbody[1],mtitle_body[1]]
 reverse_hash_labels=mtitle[2]
-print(mtitle[2])
-print(mbody[2])
-print(mtitle_body[2])
-print(acc)
-print(vectorizers)
 def detectFlair(detectData):
     model1=m1
     model2=m2
@@ -56,7 +44,6 @@ def detectFlair(detectData):
     ans3=model3.predict(detectData[2])
     d={}
     l=[ans1[0],ans2[0],ans3[0]]
-    print(l)
     for i in range(len(l)):
         if l[i] not in d:
             d[l[i]]=[1,acc[i],l[i]]
@@ -66,7 +53,6 @@ def detectFlair(detectData):
     for i in d:
         arr.append(d[i])
     arr.sort(key=lambda x: (-x[0],-x[1]))
-    print("what?", arr)
     return reverse_hash_labels[arr[0][2]]
 def createVector(data,vectorizer):
     stop_words=set(stopwords.words('english'))
@@ -90,21 +76,14 @@ def createVector(data,vectorizer):
     return unique_word_count_vectorizer.toarray()
 @app.route('/')
 def index():
-    # print("in index",file=sys.stderr)
-    
-    # return '''
-    # <form method="POST" action="/saveData">
-    #     <input type="Submit" value="Train the Model">
-    # </form>
-    # '''
     return render_template('index.html')
 @app.route('/saveData',methods=["POST"])
 def saveData():
     kk=0
     current_id=[]
-    # for submission in reddit.subreddit('india').top(limit=1):
-    #     kk+=1
-    #     mongo.db.users.insert({'submission_name': "submission_"+str(kk), "author": str(submission.author), "comments": str(submission.comments.list()), "timestamp": str(submission.created_utc), "body": str(submission.selftext.encode('utf-8').strip()), "id": str(submission.id.encode('utf-8').strip()), "flair": str(submission.link_flair_text), "fullName": str(submission.name.encode('utf-8').strip()), "title": str(submission.title.encode('utf-8').strip()), "upvote_ratio": str(submission.upvote_ratio), "my_id": '1234'})
+    for submission in reddit.subreddit('india').top(limit=1):
+        kk+=1
+        mongo.db.users.insert({'submission_name': "submission_"+str(kk), "author": str(submission.author), "comments": str(submission.comments.list()), "timestamp": str(submission.created_utc), "body": str(submission.selftext.encode('utf-8').strip()), "id": str(submission.id.encode('utf-8').strip()), "flair": str(submission.link_flair_text), "fullName": str(submission.name.encode('utf-8').strip()), "title": str(submission.title.encode('utf-8').strip()), "upvote_ratio": str(submission.upvote_ratio), "my_id": '1234'})
     return render_template('saveData.html')
 @app.route('/getLabel',methods=["POST"])
 def getLabel():
