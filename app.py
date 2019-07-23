@@ -19,12 +19,11 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
-reddit=praw.Reddit(client_id="GXSJ2q3iO6H1sw", client_secret="4HcvsdQ14CZMKRp1__ZkjkRnXGE",
-                     password="ishagupta18", user_agent='testing praw',
-                     username="isha_gupta18")
-app = Flask(__name__)
-# app.config['MONGO_URI']="mongodb://localhost:27017/mydatabase3"
-app.config['MONGO_URI']="mongodb://gdgnd:gdgnd19@ds119755.mlab.com:19755/gdgndnodeangular"
+reddit=praw.Reddit(client_id=os.environ['CLIENT_ID_REDDIT'], client_secret=os.environ['CLIENT_SECRET_REDDIT'],
+                     password=os.environ['PASSWORD_REDDIT'], user_agent='testing praw',
+                     username=os.environ['USERNAME_REDDIT'])
+app = Flask(__name__,static_folder="templates/static")
+app.config['MONGO_URI']=os.environ['MONGODB_URI']
 mongo = PyMongo(app)
 accuracy1=0
 accuracy2=0
