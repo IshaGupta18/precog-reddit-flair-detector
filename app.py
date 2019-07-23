@@ -22,7 +22,7 @@ from sklearn import metrics
 reddit=praw.Reddit(client_id=os.environ['CLIENT_ID_REDDIT'], client_secret=os.environ['CLIENT_SECRET_REDDIT'],
                      password=os.environ['PASSWORD_REDDIT'], user_agent='testing praw',
                      username=os.environ['USERNAME_REDDIT'])
-app = Flask(__name__,static_folder="templates/static")
+app = Flask(__name__)
 app.config['MONGO_URI']=os.environ['MONGODB_URI']
 mongo = PyMongo(app)
 accuracy1=0
