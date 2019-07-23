@@ -11,12 +11,21 @@
             <p class="sub_heading">Detect the flair of your Reddit post</p>
         </div>
         <div class="main_container">
-            <h2 class="labelanswer"> {{ labelValue }} </h2>
-            <form method="POST" action="/stats">
-                <button type="submit" class="btn btn-primary">
-                    View some stats about Reddit Data
-                </button>
-            </form>
+            <div>
+                <img src="{{ url_for('static', filename='img1.png') }}">
+            </div>
+            <div>
+                <img src="{{ url_for('static', filename='img2.png') }}">
+            </div>
+            <div>
+                <img src="{{ url_for('static', filename='img3.png') }}">
+            </div>
+            <div>
+                <img src="{{ url_for('static', filename='img4.png') }}">
+            </div>
+            <div>
+                <img src="{{ url_for('static', filename='img5.png') }}">
+            </div>
         </div>
     </body>
 </html>

@@ -81,9 +81,9 @@ def index():
 def saveData():
     kk=0
     current_id=[]
-    for submission in reddit.subreddit('india').top(limit=1):
-        kk+=1
-        mongo.db.users.insert({'submission_name': "submission_"+str(kk), "author": str(submission.author), "comments": str(submission.comments.list()), "timestamp": str(submission.created_utc), "body": str(submission.selftext.encode('utf-8').strip()), "id": str(submission.id.encode('utf-8').strip()), "flair": str(submission.link_flair_text), "fullName": str(submission.name.encode('utf-8').strip()), "title": str(submission.title.encode('utf-8').strip()), "upvote_ratio": str(submission.upvote_ratio), "my_id": '1234'})
+    # for submission in reddit.subreddit('india').top(limit=1):
+    #     kk+=1
+    #     mongo.db.users.insert({'submission_name': "submission_"+str(kk), "author": str(submission.author), "comments": str(submission.comments.list()), "timestamp": str(submission.created_utc), "body": str(submission.selftext.encode('utf-8').strip()), "id": str(submission.id.encode('utf-8').strip()), "flair": str(submission.link_flair_text), "fullName": str(submission.name.encode('utf-8').strip()), "title": str(submission.title.encode('utf-8').strip()), "upvote_ratio": str(submission.upvote_ratio), "my_id": '1234'})
     return render_template('saveData.html')
 @app.route('/getLabel',methods=["POST"])
 def getLabel():
@@ -99,6 +99,9 @@ def getLabel():
     print(finalAns)
     # return finalAns
     return render_template('getLabel.html',labelValue=finalAns)
+@app.route('/stats',methods=["POST"])
+def stats():
+    return render_template('stats.html')
 
 
 if __name__ == '__main__':
