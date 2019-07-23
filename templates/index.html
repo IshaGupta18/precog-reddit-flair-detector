@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div class="main_heading_container">
+            <h2 class="main_heading"> Reddit Flair Detector</h2>
+            <p class="sub_heading">Detect the flair of your Reddit post</p>
+        </div>
+        <div class="main_container">
+            <form method="POST" action="/saveData">
+                <button type="submit" class="btn btn-primary btn-lg" data-toggle="tooltip" data-placement="top" title="Saves a couple of entries in a remote Mongodb instance, just to show it's working on heroku">Ready to Go</button>
+            </form>
+        </div>
+    </body>
+</html>
+<style>
+    .main_heading{
+        font-family: 'Ubuntu Condensed';
+        text-align: center;
+        color: #001a66;
+        font-size: 50px;
+    }
+    .sub_heading{
+        font-family: 'Ubuntu Condensed';
+        text-align: center;
+        color: #525357;
+        font-size: 20px;
+        padding-top: 10px;
+    }
+    .main_heading_container{
+        margin-top: 80px;
+    }
+    .main_container{
+        margin:0 auto;
+        width: 50%;
+        height: 600px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    }
+</style>

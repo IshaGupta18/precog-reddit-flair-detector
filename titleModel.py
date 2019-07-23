@@ -20,7 +20,7 @@ reddit=praw.Reddit(client_id=os.environ['CLIENT_ID_REDDIT'], client_secret=os.en
                      password=os.environ['PASSWORD_REDDIT'], user_agent='testing praw',
                      username=os.environ['USERNAME_REDDIT'])
 
-
+actualLabels={'AMA':0,'AskIndia':0,'Business/Finance':0,'Entertainment':0,'Food':0,'Lifehacks':0,'Non-Political':0,'Photography':0,'Policy/Economy':0,'Politics':0,'Science/Technology':0,'Sports':0,'[R]eddiquette':0}
 titles=[]
 hash_labels={}
 reverse_hash_labels={}
@@ -30,6 +30,8 @@ testLabels=[]
 i=0
 flairs=[]
 for submission in reddit.subreddit('india').top(limit=1000):
+    if submission.link_flair_text not in actualLabels:
+        continue
     i+=1
     titles.append(submission.title)
     labelsTrain.append(submission.link_flair_text)
@@ -71,6 +73,7 @@ tfidf_vectorizer=TfidfVectorizer(use_idf=True)
 unique_word_count_vectorizer=tfidf_vectorizer.fit_transform(titles)
 
 X_train, X_test, Y_train, Y_test = train_test_split(unique_word_count_vectorizer, labels, test_size=0.2,random_state=109)
+print(labels)
 gnb = MultinomialNB()
 gnb.fit(X_train.toarray(),Y_train)
 Y_predicted=gnb.predict(X_test.toarray())

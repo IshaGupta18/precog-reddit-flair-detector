@@ -19,7 +19,7 @@ from sklearn import metrics
 reddit=praw.Reddit(client_id=os.environ['CLIENT_ID_REDDIT'], client_secret=os.environ['CLIENT_SECRET_REDDIT'],
                      password=os.environ['PASSWORD_REDDIT'], user_agent='testing praw',
                      username=os.environ['USERNAME_REDDIT'])
-
+actualLabels={'AMA':[0,0],'AskIndia':[0,0],'Business/Finance':[0,0],'Entertainment':[0,0],'Food':[0,0],'Lifehacks':[0,0],'Non-Political':[0,0],'Photography':[0,0],'Policy/Economy':[0,0],'Politics':[0,0],'Science/Technology':[0,0],'Sports':[0,0],'[R]eddiquette':[0,0]}
 titles=[]
 hash_labels={}
 reverse_hash_labels={}
@@ -29,11 +29,18 @@ testLabels=[]
 flairs=[]
 i=0
 for submission in reddit.subreddit('india').top(limit=1000):
+    if submission.link_flair_text not in actualLabels:
+        continue
+    if "http" in submission.selftext:
+        continue
     i+=1
     titles.append(submission.title+" "+submission.selftext)
     labelsTrain.append(submission.link_flair_text)
+    actualLabels[submission.link_flair_text][0]+=submission.upvote_ratio
+    actualLabels[submission.link_flair_text][1]+=len(submission.comments.list())
     if submission.link_flair_text not in flairs:
         flairs.append(submission.link_flair_text)
+print(actualLabels)
 tempCounter=0
 flairs.sort()
 for j in flairs:
